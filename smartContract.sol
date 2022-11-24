@@ -1,5 +1,6 @@
 //SPDX-License-Identifier:MIT
 pragma solidity >= 0.3.0 <0.8.17;
+
 contract chat {
 
     // Stores the default name of an user and her friends info
@@ -28,30 +29,30 @@ contract chat {
 
     // It checks whether a user(identified by its public key)
     // has created an account on this application or not
-    function checkUserExists(address pubkey) public view returns(bool) {
+    function checkUserExists(address pubkey) public view returns (bool) {
         return bytes(userList[pubkey].name).length > 0;
     }
 
     // Registers the caller(msg.sender) to our app with a non-empty username
     function createAccount(string calldata name) external returns (bool){
-        require(checkUserExists(msg.sender)==false, "User already exists!");
-        require(bytes(name).length>0, "Username cannot be empty!");
+        require(checkUserExists(msg.sender) == false, "User already exists!");
+        require(bytes(name).length > 0, "Username cannot be empty!");
         userList[msg.sender].name = name;
         return true;
     }
 
     // Returns the default name provided by an user
-    function getUsername(address pubkey) external view returns(string memory) {
+    function getUsername(address pubkey) external view returns (string memory) {
         require(checkUserExists(pubkey), "User is not registered!");
         return userList[pubkey].name;
     }
 
     // Adds new user as your friend with an associated nickname
     function addFriend(address friendAddress, string calldata name) external returns (bool) {
-       // require(checkUserExists(msg.sender), "Create an account first!");
-       // require(checkUserExists(friendAddress), "User is not registered!");
-      //  require(msg.sender!= friendAddress, "Users cannot add themselves as friends!");
-       // require(checkAlreadyFriends(msg.sender, friendAddress)==false, "These users are already friends!");
+        // require(checkUserExists(msg.sender), "Create an account first!");
+        // require(checkUserExists(friendAddress), "User is not registered!");
+        //  require(msg.sender!= friendAddress, "Users cannot add themselves as friends!");
+        // require(checkAlreadyFriends(msg.sender, friendAddress)==false, "These users are already friends!");
 
         _addFriend(msg.sender, friendAddress, name);
         _addFriend(friendAddress, msg.sender, userList[msg.sender].name);
@@ -59,18 +60,18 @@ contract chat {
     }
 
     // Checks if two users are already friends or not
-    function checkAlreadyFriends(address pubkey1, address pubkey2) internal view returns(bool) {
+    function checkAlreadyFriends(address pubkey1, address pubkey2) internal view returns (bool) {
 
-        if(userList[pubkey1].friendList.length > userList[pubkey2].friendList.length)
+        if (userList[pubkey1].friendList.length > userList[pubkey2].friendList.length)
         {
             address tmp = pubkey1;
             pubkey1 = pubkey2;
             pubkey2 = tmp;
         }
 
-        for(uint i=0; i<userList[pubkey1].friendList.length; ++i)
+        for (uint i = 0; i < userList[pubkey1].friendList.length; ++i)
         {
-            if(userList[pubkey1].friendList[i].pubkey == pubkey2)
+            if (userList[pubkey1].friendList[i].pubkey == pubkey2)
                 return true;
         }
         return false;
@@ -78,19 +79,19 @@ contract chat {
 
     // A helper function to update the friendList
     function _addFriend(address me, address friend_key, string memory name) internal {
-        friend memory newFriend = friend(friend_key,name);
+        friend memory newFriend = friend(friend_key, name);
         userList[me].friendList.push(newFriend);
     }
 
     // Returns list of friends of the sender
-    function getMyFriendList() external view returns(friend[] memory) {
+    function getMyFriendList() external view returns (friend[] memory) {
         return userList[msg.sender].friendList;
     }
 
     // Returns a unique code for the channel created between the two users
     // Hash(key1,key2) where key1 is lexicographically smaller than key2
-    function _getChatCode(address pubkey1, address pubkey2) internal pure returns(bytes32) {
-        if(pubkey1 < pubkey2)
+    function _getChatCode(address pubkey1, address pubkey2) internal pure returns (bytes32) {
+        if (pubkey1 < pubkey2)
             return keccak256(abi.encodePacked(pubkey1, pubkey2));
         else
             return keccak256(abi.encodePacked(pubkey2, pubkey1));
@@ -98,7 +99,7 @@ contract chat {
 
     // Sends a new message to a given friend
     function sendMessage(address friend_key, string calldata _msg) external {
-       // require(checkUserExists(msg.sender), "Create an account first!");
+        // require(checkUserExists(msg.sender), "Create an account first!");
         //require(checkUserExists(friend_key), "User is not registered!");
         //require(checkAlreadyFriends(msg.sender,friend_key), "You are not friends with the given user");
 
@@ -108,7 +109,7 @@ contract chat {
     }
 
     // Returns all the chat messages communicated in a channel
-    function readMessage(address friend_key) external view returns(message[] memory) {
+    function readMessage(address friend_key) external view returns (message[] memory) {
         bytes32 chatCode = _getChatCode(msg.sender, friend_key);
         return allMessages[chatCode];
     }

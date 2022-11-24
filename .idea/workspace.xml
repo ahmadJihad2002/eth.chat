@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="" />
+    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/templates/basePage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/chatPage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/mainPage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/network.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/success.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/stylelogInPopUp.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/styling.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/homePage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy_smart_contract.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy_smart_contract.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartContract.sol" beforeDir="false" afterPath="$PROJECT_DIR$/smartContract.sol" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2HrVmrMW7WcB75IVqu3pA0rjI0R" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/ahmaddarabee/PycharmProjects/eth.chat/app/static",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ahmaddarabee/PycharmProjects/eth.chat/app/static&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/static" />
@@ -117,6 +143,17 @@
       <updated>1669043350644</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

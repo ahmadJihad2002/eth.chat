@@ -1,0 +1,38 @@
+{% extends "basePage.html" %}
+{% block body %}
+
+
+<form>
+    <div class="mb-3">
+        <label for="network-name" class="form-label">network-name</label>
+        <input type="text" class="form-control" id="network-name" name="network_name">
+    </div>
+    <div class="mb-3">
+        <label for="ID" class="form-label">networkID</label>
+        <input type="text" class="form-control" id="ID" name="ID">
+        <div class="form-text">make sure to enter the real ID</div>
+    </div>
+    <div class="mb-3">
+        <label for="HTTP" class="form-label">HTTP provider</label>
+        <input type="text" class="form-control" id="HTTP" name="HTTP">
+    </div>
+    <div class="mb-3">
+        <div class="mb-3">
+            <label for="HTTP" class="form-label">user name</label>
+            <input type="text" class="form-control" id="username" name="userName">
+            <div class="form-text">it could be any name you want</div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="HTTP" class="form-label">public key</label>
+        <input type="text" class="form-control" id="publicKey" name="publicKey">
+    </div>
+    <div class="mb-3">
+        <label for="HTTP" class="form-label">private key</label>
+        <input type="password" class="form-control" id="privateKey" name="privateKey">
+    </div>
+    <button type="submit" class="btn btn-primary">connect</button>
+
+</form>
+
+{% endblock %}

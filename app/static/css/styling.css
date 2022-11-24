@@ -22,6 +22,15 @@ padding: 100px
   padding: 1;
 }
 
+
+.networkForm{
+   display:block;
+    width:50%;
+    height:50%;
+    margin:0 auto;
+}
+
+
 .users .person {
   position: relative;
   width: 100%;
