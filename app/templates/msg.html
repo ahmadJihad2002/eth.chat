@@ -1,0 +1,61 @@
+{%extends "basePage.html" %}
+{% block body %}
+<div style="padding-left:30px;  width:75%; ">
+    <div class="col-lg">
+        <div class="card">
+            <div class="selected-user">
+                <span> To: <span class="name">{{receiver}}</span></span>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <div class="sep-ver"></div>
+                </div>
+                <div class="col">
+                    <div class="chat-container">
+                        <ul class="chat-box chatContainerScroll">
+                            {% for i in range(msgs|length) %}
+                            {% if msgs[i][sender]==receiver %}
+                            <li class="chat-left">
+                              <div class="chat-text">
+                                    {{msgs[i][2]}}
+                                </div>
+                                <div class="chat-hour">{{msgs[i][1]}} <span class="fa fa-check-circle"></span>
+                                </div>
+                            </li>
+                            {%else%}
+                            <li class="chat-right">
+                                 <div class="chat-text"> {{msgs[i][2]}}
+                                </div>
+                                <div class="chat-hour">{{msgs[i][1]}} <span class="fa fa-check-circle"></span>
+                                </div>
+                            </li>
+                            {%endif%}
+                            {%endfor%}
+
+                        </ul>
+                        <form action="#" method="post">
+                            <input type="text" hidden name="send_msg" value="send_msg">
+                            <div class="row justify-content-sm-start">
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-primary btn-md">send</button>
+                                </div>
+                                <div class="col-5">
+                                    <div class="set_form_at_bottom">
+                                        <div class="form-group mt-3 mb-0">
+                                <textarea class="form-control" rows="3"
+                                          placeholder="Type your message here..." name="msg"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

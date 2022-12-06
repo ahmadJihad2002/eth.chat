@@ -1,38 +1,69 @@
 {% extends "basePage.html" %}
 {% block body %}
-
-
-<form>
+<form action="/network" class="network" method="post">
     <div class="mb-3">
-        <label for="network-name" class="form-label">network-name</label>
-        <input type="text" class="form-control" id="network-name" name="network_name">
+        <label class="form-label" for="network-name">network-name</label>
+        <input class="form-control" id="network-name" name="network_name" type="text">
     </div>
     <div class="mb-3">
-        <label for="ID" class="form-label">networkID</label>
-        <input type="text" class="form-control" id="ID" name="ID">
+        <label class="form-label" for="ID">networkID</label>
+        <input class="form-control" id="ID" name="ID" type="number">
         <div class="form-text">make sure to enter the real ID</div>
     </div>
     <div class="mb-3">
-        <label for="HTTP" class="form-label">HTTP provider</label>
-        <input type="text" class="form-control" id="HTTP" name="HTTP">
+        <label class="form-label" for="HTTP">HTTP provider</label>
+        <input class="form-control" id="HTTP" name="HTTP" type="text">
     </div>
     <div class="mb-3">
         <div class="mb-3">
-            <label for="HTTP" class="form-label">user name</label>
-            <input type="text" class="form-control" id="username" name="userName">
+            <label class="form-label" for="HTTP">user name</label>
+            <input class="form-control" id="username" name="username" type="text">
             <div class="form-text">it could be any name you want</div>
         </div>
     </div>
     <div class="mb-3">
-        <label for="HTTP" class="form-label">public key</label>
-        <input type="text" class="form-control" id="publicKey" name="publicKey">
+        <label class="form-label" for="HTTP">public key</label>
+        <input class="form-control" id="publicKey" name="publicKey" type="text">
     </div>
     <div class="mb-3">
-        <label for="HTTP" class="form-label">private key</label>
-        <input type="password" class="form-control" id="privateKey" name="privateKey">
+        <label class="form-label" for="HTTP">private key</label>
+        <input class="form-control" id="privateKey" name="privateKey" type="text">
     </div>
-    <button type="submit" class="btn btn-primary">connect</button>
+    <form action="/network">
+        <button class="btn btn-primary" type="submit">
+            connect
+        </button>
 
+    </form>
 </form>
+
+
+{% endblock %}
+
+{% block connection %}
+
+{% if network_info["HTTP"]!=None %}
+<div class="container-connection-status">
+
+
+    <div class="row">
+        <div class="col">
+            Id: <br> {{ network_info["ID"] }}
+        </div>
+        <div class="col">
+            HTTP: {{ network_info["HTTP"]}}
+        </div>
+        <div class="col">
+            my address: {{ network_info["myAddress"]}}
+        </div>
+    </div>
+
+
+</div>
+
+{%else %}
+<h6> your not connected yet please add an network </h6>
+{%endif%}
+
 
 {% endblock %}

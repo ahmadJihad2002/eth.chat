@@ -1,11 +1,66 @@
-body{margin-top:20px;}
+body{margin-top:8px;}
 body, html {
   width: 100%;
-  height: 100%;
-  margin: 0;
+ height: 100%
+  margin: 10px;
+  padding: 2px;
+
+
+}
+
+.hr{
+opacity:.1;
+}
+.sep-ver{
+  border-left: .5px solid black;
+    height: 200%;
+    opacity:.3;
 }
 .btn btn-primary btn-med{
 padding: 100px
+}
+.network{
+padding:10px;
+}
+.nigga{
+padding:10px;
+width:30%;
+ height:20%;
+border:solid;
+
+}
+
+.container-base {
+  height: 100%;
+  width: 100%;
+}
+.particles-wrapper button{
+align:center;
+ z-index: 2;
+    position: absolute;
+    top: 80%;
+    right:50%;
+}
+
+.p1, p2{
+opacity: 0.6;
+padding-left:20px ;
+ text-align: start;
+ align:center;
+ position: absolute;
+  top: 50%;
+  color:white;
+ font-size:18px;
+}
+
+
+particles-wrapper {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: -100;
+  top:0;
+  left:0;
 }
 .users-container {
   position: relative;
@@ -18,6 +73,7 @@ padding: 100px
   flex-direction: column;
 }
 
+
 .users {
   padding: 1;
 }
@@ -29,7 +85,17 @@ padding: 100px
     height:50%;
     margin:0 auto;
 }
-
+.particles-wrapper {
+  background-color: #222;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.container-connection-status{
+justify-content: flex ;
+}
 
 .users .person {
   position: relative;

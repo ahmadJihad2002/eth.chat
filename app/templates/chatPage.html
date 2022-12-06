@@ -1,119 +1,70 @@
 {%extends "basePage.html" %}
 {% block body %}
-
-<div class="row gutters">
-
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-        <div class="card m-0">
-
-            <!-- Row start -->
-            <div class="row no-gutters">
-
-                <!--start of friends bar -->
-
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
-                    <div class="users-container">
-                        <br>
-                        <div>
-
-                            <button type="button" class="btn btn-primary btn-med">add friend</button>
-
+{% if not is_connected%}
+<div class="center">
+    network not added yet!
+</div>
+{%else%}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <!--start of friends bar -->
+            <div class="users-container">
+                <br>
+                <form action="{{ url_for('chat_page') }}" method="post">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary btn-med">add friend</button>
                         </div>
-
-
-                        <br>
-                        <ul class="users">
-                            <li class="person" data-chat="person1">
-                                <div class="user">
-                                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
-                                         alt="Retail Admin">
-                                    <span class="status busy"></span>
-                                </div>
-                                <p class="name-time">
-                                    <span class="name">Steve Bangalter</span>
-                                    <span class="time">15/02/2019</span>
-                                </p>
-                            </li>
-
-
-                        </ul>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="friendAddress"
+                                   name="friendAddress" type="text"
+                                   placeholder="0x*****************"></div>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="friendName" name="friendName"
+                                   type="text"
+                                   placeholder="name"></div>
                     </div>
-                </div>
-                <!--end of friends bar -->
-
-                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
-                    <div class="selected-user">
-                        <span> To: <span class="name">{{myAddress}}</span></span>
-                    </div>
-                    <div class="chat-container">
-                        <ul class="chat-box chatContainerScroll">
-
-                            <li class="chat-left">
-                                <div class="chat-avatar">
-                                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
-                                         alt="Retail Admin">
-                                    <div class="chat-name">Russell</div>
-                                </div>
-                                <div class="chat-text">Hello, I'm Russell.
-                                    <br>How can I help you today?
-                                </div>
-                                <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div>
-                            </li>
-
-
-                            <li class="chat-right">
-                                <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div>
-                                <div class="chat-text">Hi, Russell
-                                    <br> I need more information about Developer Plan.
-                                </div>
-                                <div class="chat-avatar">
-                                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
-                                         alt="Retail Admin">
-                                    <div class="chat-name">Sam</div>
-                                </div>
-                            </li>
-
-                            <li class="chat-left">
-                                <div class="chat-avatar">
-                                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
-                                         alt="Retail Admin">
-                                    <div class="chat-name">Russell</div>
-                                </div>
-                                <div class="chat-text">Are we meeting today?
-                                    <br>Project has been already finished and I have results to show you.
-                                </div>
-                                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
-                            </li>
-
-                            <li class="chat-left">
-                                <div class="chat-avatar">
-                                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
-                                         alt="Retail Admin">
-                                    <div class="chat-name">Russell</div>
-                                </div>
-                                <div class="chat-text">Are we meeting today?
-                                    <br>Project has been already finished and I have results to show you.
-                                </div>
-                                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
-                            </li>
-
-
-                        </ul>
-                        <div class="form-group mt-3 mb-0">
-                                <textarea class="form-control" rows="3"
-                                          placeholder="Type your message here..."></textarea>
+                </form>
+                <hr class="hr"/>
+                <br>
+                {% if not friend_list %}
+                <ul class="users">
+                    <li class="person" data-chat="person1">
+                        <div class="user">
+                            you have no friends add some!
                         </div>
-                    </div>
-
-                </div>
+                    </li>
+                </ul>
+                {%else%}
+                <ul class="users" id="select">
+                    {% for i in range(friend_list|length) %}
+                    <form action={{url_for('msg',friend_address=friend_list[i][0])}} method="get">
+                        <li class="person" data-chat="person13">
+                            <div class="user">
+                                <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
+                                     alt="Retail Admin">
+                                <span class="status busy"></span>
+                            </div>
+                            <p class="name-time">
+                                <span class="name">{{ friend_list[i][1] }}</span>
+                                <span class="time" id="key">{{ friend_list[i][0] }}</span>
+                            </p>
+                            <input hidden value={{friend_list[i][0]}} name="selected">
+                            <button type="submit"
+                                    class="btn btn-primary">goooo
+                            </button>
+                        </li>
+                    </form>
+                    {% endfor %}
+                </ul>
+                {%endif%}
             </div>
-            <!-- Row end -->
+            <!-- end of friends bar-->
         </div>
-
     </div>
 
-
 </div>
+{% endif %}
 
 {% endblock %}
