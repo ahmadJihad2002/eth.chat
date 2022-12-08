@@ -264,17 +264,6 @@ class SmartContract:
 #                   privateKey="0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5",
 #                   name="ahmad")
 
-# print(c.nonce)
-# print(c.addFriend(friendName="laith", friendAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D"))
-# c.sendMessage(msg="hay hay maan", receiverAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D")
-# c.sendMessage(msg="hay hay ", receiverAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D")
-# c.sendMessage(msg="yo yo yo ", receiverAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D")
-# c.sendMessage(msg="yo yo yo ", receiverAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D")
-# c.sendMessage(msg="how you doing ", receiverAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D")
-# print(c.checkUserExists("0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D"))
-#
-# for i in range(5):
-#     print(c.readMessages(friendAddress="0x54F08CBFF5E3E71BA0D7f4248af2c8D519B8958D")[i][2])
 # now we can call the function from the smart contract. We can call it using two keywords
 # call :simulate the call and get return value but not changing the state
 # transaction : calling the function and changing the state of the network

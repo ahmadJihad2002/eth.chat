@@ -14,14 +14,13 @@ def mainPage():
 
 @app.route('/chat_page', methods=["GET", "POST"])
 def chat_page():
-    friend_list = None
+    friend_list = user.showfriendList()
     if request.method == "POST":
         req = request.form
         address = req['friendAddress']
         name = req['friendName']
         user.addFriend(friendName=name, friendAddress=address)
         friend_list = user.showfriendList()
-        print("friend been added")
     return render_template("chatPage.html", friend_list=friend_list,
                            is_connected=network_info["HTTP"])
 
