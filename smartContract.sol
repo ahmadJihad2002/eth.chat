@@ -23,7 +23,7 @@ contract chat {
     }
 
     // Collection of users registered on the application
-    mapping(address => user) userList;
+    mapping(address => user) public userList;
     // Collection of messages communicated in a channel between two users
     mapping(bytes32 => message[]) allMessages; // key : Hash(user1,user2)
 
@@ -34,10 +34,10 @@ contract chat {
     }
 
     // Registers the caller(msg.sender) to our app with a non-empty username
-    function createAccount(string calldata name) external returns (bool){
-        require(checkUserExists(msg.sender) == false, "User already exists!");
+    function createAccount(string calldata name, address sender ) external returns (bool){
+        require(checkUserExists(sender) == false, "User already exists!");
         require(bytes(name).length > 0, "Username cannot be empty!");
-        userList[msg.sender].name = name;
+        userList[sender].name = name;
         return true;
     }
 
@@ -48,15 +48,15 @@ contract chat {
     }
 
     // Adds new user as your friend with an associated nickname
-    function addFriend(address friendAddress, string calldata name) external returns (bool) {
+    function addFriend(address friendAddress, string calldata name,address sender) public  {
         // require(checkUserExists(msg.sender), "Create an account first!");
         // require(checkUserExists(friendAddress), "User is not registered!");
         //  require(msg.sender!= friendAddress, "Users cannot add themselves as friends!");
         // require(checkAlreadyFriends(msg.sender, friendAddress)==false, "These users are already friends!");
 
-        _addFriend(msg.sender, friendAddress, name);
-        _addFriend(friendAddress, msg.sender, userList[msg.sender].name);
-        return (true);
+        _addFriend(sender, friendAddress, name);
+        _addFriend(friendAddress,sender, userList[sender].name);
+
     }
 
     // Checks if two users are already friends or not
@@ -84,8 +84,8 @@ contract chat {
     }
 
     // Returns list of friends of the sender
-    function getMyFriendList() external view returns (friend[] memory) {
-        return userList[msg.sender].friendList;
+    function getMyFriendList(address sender) external view returns (friend[] memory) {
+        return userList[sender].friendList;
     }
 
     // Returns a unique code for the channel created between the two users
@@ -98,19 +98,24 @@ contract chat {
     }
 
     // Sends a new message to a given friend
-    function sendMessage(address friend_key, string calldata _msg) external {
+    function sendMessage(address friend_key, string calldata _msg,address sender) external {
         // require(checkUserExists(msg.sender), "Create an account first!");
         //require(checkUserExists(friend_key), "User is not registered!");
         //require(checkAlreadyFriends(msg.sender,friend_key), "You are not friends with the given user");
 
-        bytes32 chatCode = _getChatCode(msg.sender, friend_key);
-        message memory newMsg = message(msg.sender, block.timestamp, _msg);
+        bytes32 chatCode = _getChatCode( sender, friend_key);
+        message memory newMsg = message(sender, block.timestamp, _msg);
         allMessages[chatCode].push(newMsg);
     }
 
     // Returns all the chat messages communicated in a channel
-    function readMessage(address friend_key) external view returns (message[] memory) {
-        bytes32 chatCode = _getChatCode(msg.sender, friend_key);
+    function readMessage(address friend_key,address sender) external view returns (message[] memory) {
+        bytes32 chatCode = _getChatCode(sender, friend_key);
         return allMessages[chatCode];
     }
-}
+
+ }
+
+
+
+
