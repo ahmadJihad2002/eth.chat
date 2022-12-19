@@ -9,33 +9,22 @@ class SmartContract:
     abi = compile_solidity.abi
 
     # for connecting to blockchain network
-    def __init__(self, HTTP, chainId, privateKey, publicKey, name):
+    def __init__(self, HTTP):
         self.HTTP = HTTP
         self.w3 = Web3(Web3.HTTPProvider(self.HTTP))
-        print("is connected ")
-        print(self.w3.isConnected())
-        self.name = name
-        self.myAddress = publicKey
-        self.privateKey = privateKey
+        self.is_connected = self.w3.isConnected()
         self.chainId = self.w3.eth.chainId
-        if HTTP == "127.0.0.1:7545":
-            self.chainId = chainId
+        self.private_key = 0
         # to create the contract in python
-        self.nonce = self.w3.eth.getTransactionCount(self.myAddress)
         self.trx_index = 0
         print(self.w3.eth.gas_price)
-        print(self.nonce)
         self.smart_contract = self.w3.eth.contract(abi=self.abi, bytecode=self.byteCode)
         # 1. build the transaction
         # 2. sign the transaction using private key
         # 3. send the transaction
         # 4. wait the Reception
         # to find the number of transaction
-        print(self.w3.eth.getTransactionCount(self.myAddress))
 
-        # 1.
-        self.myAddress = publicKey
-        self.privateKey = privateKey
         print(" sitting up the transaction ... ")
         # transaction = self.smart_contract.constructor().build_transaction(
         #     {"gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": self.myAddress,
@@ -61,23 +50,10 @@ class SmartContract:
         # self.deploy_smart_contract = self.w3.eth.contract(address=waitRecept.contractAddress, abi=self.abi)
         # print(waitRecept.contractAddress)
 
-        print(self.w3.eth.getTransactionCount(self.myAddress))
         self.deploy_smart_contract = self.w3.eth.contract(
             address=Web3.toChecksumAddress('0xed8aAb02fb90acD196acBfAef115F0ef656C46da'), abi=self.abi)
         # print(self.w3.eth.getTransactionCount(self.myAddress))
         print("contract been deployed ")
-        # print(waitRecept.contractAddress)
-        # print(self.w3.eth.getTransactionCount(self.myAddress))
-        # creating account
-        # wait_trax_receipt = self.w3.eth.wait_for_transaction_receipt(
-        #     self.w3.eth.send_raw_transaction(
-        #         self.w3.eth.account.sign_transaction(
-        #             self.deploy_smart_contract.functions.createAccount(name=self.name).buildTransaction({
-        #                 "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": self.myAddress,
-        #                 "nonce": self.nonce + 1
-        #             }), self.privateKey).rawTransaction))
-        #
-        # print(wait_trax_receipt)
 
     def addFriend(self, friendName, friendAddress, sender_address):
         print(self.w3.eth.get_balance(Web3.toChecksumAddress('0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b')))
@@ -87,24 +63,25 @@ class SmartContract:
                     self.deploy_smart_contract.functions.addFriend(friendAddress=friendAddress,
                                                                    name=friendName,
                                                                    sender=sender_address).buildTransaction({
-                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": self.myAddress,
-                        "nonce": self.nonce + self.trx_index
-                    }), self.privateKey).rawTransaction))
+                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
+                        "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index
+                    }), self.private_key).rawTransaction))
         self.trx_index += 1
         print('data for adding friend ')
         print(wait_trax_receipt)
         print(self.w3.eth.get_balance(Web3.toChecksumAddress('0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b')))
 
-    def create_account(self, name, sender_address):
+    def create_account(self, name, sender_address, private_key):
+        self.private_key = private_key
         wait_trax_receipt = self.w3.eth.wait_for_transaction_receipt(
             self.w3.eth.send_raw_transaction(
                 self.w3.eth.account.sign_transaction(
                     self.deploy_smart_contract.functions.createAccount(name=name,
                                                                        sender=sender_address).buildTransaction({
-                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": self.myAddress,
-                        "nonce": self.nonce + self.trx_index
+                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
+                        "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index
 
-                    }), self.privateKey).rawTransaction))
+                    }), self.private_key).rawTransaction))
         self.trx_index += 1
         print(wait_trax_receipt)
 
@@ -116,9 +93,9 @@ class SmartContract:
                 self.w3.eth.account.sign_transaction(
                     self.deploy_smart_contract.functions.sendMessage(friend_key=receiverAddress,
                                                                      _msg=msg, sender=sender_address).buildTransaction({
-                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": self.myAddress,
-                        "nonce": self.nonce + self.trx_index,
-                    }), self.privateKey).rawTransaction))
+                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
+                        "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index,
+                    }), self.private_key).rawTransaction))
         self.trx_index += 1
         print(wait_trax_receipt)
 
@@ -132,6 +109,7 @@ class SmartContract:
         return self.deploy_smart_contract.functions.getMyFriendList(sender=sender_address).call()
 
 
+"""
 c = SmartContract(HTTP='https://goerli.infura.io/v3/0dc1865d3cb84781999f5781077d8ddb', chainId=1,
                   publicKey='0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b',
                   privateKey='0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5',
@@ -150,14 +128,14 @@ print("done")
 print("adding friend ...")
 print(c.checkUserExists('0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b'))
 # print(c.checkUserExists("0xB2231D23966305D1B9010025d27bB078CC747bff"))
-c.sendMessage(msg="yo yo yo it's ahmad jihad :)", receiverAddress="0xB2231D23966305D1B9010025d27bB078CC747bff",
-              sender_address="0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b")
+# c.sendMessage(msg="yo yo yo it's ahmad jihad :)", receiverAddress="0xB2231D23966305D1B9010025d27bB078CC747bff",
+#               sender_address="0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b")
 # print("adding friend ")
 # c.addFriend(friendAddress='0xB2231D23966305D1B9010025d27bB078CC747bff', friendName="laith",
 #             sender_address="0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b")
 # print("friend been added ")
-print(c.readMessages(friendAddress="0xB2231D23966305D1B9010025d27bB078CC747bff",
-                     sender_address="0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b"))
+# print(c.readMessages(friendAddress="0xB2231D23966305D1B9010025d27bB078CC747bff",
+#                      sender_address="0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b"))
 #     print("friend is not reg yet ")
 #     print("friend made the reg ")
 #     print("friend been added")
@@ -166,7 +144,9 @@ print(c.readMessages(friendAddress="0xB2231D23966305D1B9010025d27bB078CC747bff",
 #     print(c.readMessages(friendAddress="0xB2231D23966305D1B9010025d27bB078CC747bff"))
 # print("my friend list ")
 d = c.showfriendList(sender_address="0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b")
+print(d)
 print("done")
 # now we can call the function from the smart contract. We can call it using two keywords
 # call :simulate the call and get return value but not changing the state
 # transaction : calling the function and changing the state of the network
+"""

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="i connect the backend with frontend">
-      <change afterPath="$PROJECT_DIR$/compile_solidity.py" afterDir="false" />
+    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="i  solved the problem with infura">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/basePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/basePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/network.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/network.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deploy_smart_contract.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy_smart_contract.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartContract.sol" beforeDir="false" afterPath="$PROJECT_DIR$/smartContract.sol" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/ahmaddarabee/PycharmProjects/eth.chat/app/static&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -177,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670494345038</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="i  solved the problem with infura">
+      <created>1670863307063</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670863307063</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -194,6 +202,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="oooh" />
     <MESSAGE value="i connect the backend with frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="i connect the backend with frontend" />
+    <MESSAGE value="i  solved the problem with infura" />
+    <option name="LAST_COMMIT_MESSAGE" value="i  solved the problem with infura" />
   </component>
 </project>

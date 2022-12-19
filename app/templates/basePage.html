@@ -51,10 +51,14 @@
                 </ul>
 
 
-                {% block connection %}
+                {% if is_connected%}
+                <div class="container-connection-status">
+                    connected to:
+                </div>
 
-
-                {% endblock %}
+                {%else %}
+                <h6>not connected </h6>
+                {%endif%}
 
 
             </div>
