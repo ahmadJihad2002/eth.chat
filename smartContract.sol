@@ -13,6 +13,7 @@ contract chat {
     struct friend {
         address pubkey;
         string name;
+
     }
 
     // message construct stores the single chat message and its metadata
@@ -33,8 +34,9 @@ contract chat {
         return bytes(userList[pubkey].name).length > 0;
     }
 
+
     // Registers the caller(msg.sender) to our app with a non-empty username
-    function createAccount(string calldata name, address sender ) external returns (bool){
+    function createAccount(string calldata name, address sender  ) external returns (bool){
         require(checkUserExists(sender) == false, "User already exists!");
         require(bytes(name).length > 0, "Username cannot be empty!");
         userList[sender].name = name;

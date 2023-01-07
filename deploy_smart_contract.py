@@ -10,22 +10,23 @@ class SmartContract:
 
     # for connecting to blockchain network
     def __init__(self, HTTP):
+        self.myAddress = "0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b"
         self.HTTP = HTTP
         self.w3 = Web3(Web3.HTTPProvider(self.HTTP))
         self.is_connected = self.w3.isConnected()
         self.chainId = self.w3.eth.chainId
-        self.private_key = 0
-        # to create the contract in python
+        self.private_key = '0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5'
         self.trx_index = 0
-        print(self.w3.eth.gas_price)
-        self.smart_contract = self.w3.eth.contract(abi=self.abi, bytecode=self.byteCode)
-        # 1. build the transaction
-        # 2. sign the transaction using private key
-        # 3. send the transaction
-        # 4. wait the Reception
-        # to find the number of transaction
-
-        print(" sitting up the transaction ... ")
+        # print(self.w3.eth.gas_price)
+        # self.smart_contract = self.w3.eth.contract(abi=self.abi, bytecode=self.byteCode)
+        # # 1. build the transaction
+        # # 2. sign the transaction using private key
+        # # 3. send the transaction
+        # # 4. wait the Reception
+        # # to find the number of transaction
+        # self.nonce = self.w3.eth.getTransactionCount(self.myAddress)
+        #
+        # print(" sitting up the transaction ... ")
         # transaction = self.smart_contract.constructor().build_transaction(
         #     {"gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": self.myAddress,
         #      "nonce": self.nonce + self.trx_index})
@@ -34,7 +35,7 @@ class SmartContract:
         # print(self.w3.eth.getTransactionCount(self.myAddress))
         # # 2.
         # print("sign the transaction...")
-        # sign = self.w3.eth.account.sign_transaction(transaction, self.privateKey)
+        # sign = self.w3.eth.account.sign_transaction(transaction, self.private_key)
         # print("done")
         # print(self.w3.eth.getTransactionCount(self.myAddress))
         # # 3.
@@ -51,8 +52,8 @@ class SmartContract:
         # print(waitRecept.contractAddress)
 
         self.deploy_smart_contract = self.w3.eth.contract(
-            address=Web3.toChecksumAddress('0xed8aAb02fb90acD196acBfAef115F0ef656C46da'), abi=self.abi)
-        # print(self.w3.eth.getTransactionCount(self.myAddress))
+            address=Web3.toChecksumAddress('0x6551C5FD37a6B4Bf0c542A5f83C0B2a1765754eA'), abi=self.abi)
+        print(self.w3.eth.getTransactionCount(self.myAddress))
         print("contract been deployed ")
 
     def addFriend(self, friendName, friendAddress, sender_address):
@@ -77,11 +78,13 @@ class SmartContract:
             self.w3.eth.send_raw_transaction(
                 self.w3.eth.account.sign_transaction(
                     self.deploy_smart_contract.functions.createAccount(name=name,
-                                                                       sender=sender_address).buildTransaction({
-                        "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
-                        "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index
+                                                                       sender=sender_address,
+                                                                        ).buildTransaction(
+                        {
+                            "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
+                            "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index
 
-                    }), self.private_key).rawTransaction))
+                        }), self.private_key).rawTransaction))
         self.trx_index += 1
         print(wait_trax_receipt)
 
@@ -108,12 +111,14 @@ class SmartContract:
     def showfriendList(self, sender_address):
         return self.deploy_smart_contract.functions.getMyFriendList(sender=sender_address).call()
 
+    # def get_user_public_key(self, sender_address):
+    #     return self.deploy_smart_contract.functions.get_user_public_key(sender_address).call()
+
+
+# c = SmartContract(
+#     HTTP='https://serene-wider-slug.ethereum-goerli.discover.quiknode.pro/e7ea9294e3c8a1396ce7175a378d32aa42d9cb31/')
 
 """
-c = SmartContract(HTTP='https://goerli.infura.io/v3/0dc1865d3cb84781999f5781077d8ddb', chainId=1,
-                  publicKey='0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b',
-                  privateKey='0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5',
-                  name="ahmad")
 # c = SmartContract(HTTP="HTTP://127.0.0.1:7545", chainId=1337,
 #                   publicKey="0x99cfc386DeF98a826f6b3473D56A952bd37e55D8",
 #                   privateKey="0x7eb2c59d6253100b18c494c5023fd3186a555d3a1c2372201d72a48cba708655",
