@@ -11,13 +11,13 @@
             <div class="chat-container">
                 <ul class="chat-box">
                     {% for i in range(msgs|length) %}
-                    {% if msgs[i][sender]==receiver %}
+                    {% if side[i][sender]==receiver %}
 
                     <li class="chat-left">
                         <div class="chat-text">
-                            {{msgs[i][2]}}
+                            {{msgs[i] }}
                         </div>
-                        <div class="chat-hour">{{msgs[i][1]}} <span class="fa fa-check-circle"></span>
+                        <div class="chat-hour">{{side[i][1]}} <span class="fa fa-check-circle"></span>
                         </div>
 
                     </li>
@@ -25,9 +25,9 @@
 
 
                     <li class="chat-right">
-                        <div class="chat-text"> {{msgs[i][2]}}
+                        <div class="chat-text"> {{msgs[i] }}
                         </div>
-                        <div class="chat-hour">{{msgs[i][1]}} <span class="fa fa-check-circle"></span>
+                        <div class="chat-hour">{{side[i][1]}} <span class="fa fa-check-circle"></span>
                         </div>
                     </li>
 

@@ -9,13 +9,13 @@ class SmartContract:
     abi = compile_solidity.abi
 
     # for connecting to blockchain network
-    def __init__(self, HTTP):
-        self.myAddress = "0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b"
+    def __init__(self, HTTP, private_key):
+        # self.myAddress = "0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b"
         self.HTTP = HTTP
         self.w3 = Web3(Web3.HTTPProvider(self.HTTP))
         self.is_connected = self.w3.isConnected()
         self.chainId = self.w3.eth.chainId
-        self.private_key = '0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5'
+        self.private_key = private_key
         self.trx_index = 0
         # print(self.w3.eth.gas_price)
         # self.smart_contract = self.w3.eth.contract(abi=self.abi, bytecode=self.byteCode)
@@ -53,7 +53,7 @@ class SmartContract:
 
         self.deploy_smart_contract = self.w3.eth.contract(
             address=Web3.toChecksumAddress('0x6551C5FD37a6B4Bf0c542A5f83C0B2a1765754eA'), abi=self.abi)
-        print(self.w3.eth.getTransactionCount(self.myAddress))
+        # print(self.w3.eth.getTransactionCount(self.myAddress))
         print("contract been deployed ")
 
     def addFriend(self, friendName, friendAddress, sender_address):
@@ -79,7 +79,7 @@ class SmartContract:
                 self.w3.eth.account.sign_transaction(
                     self.deploy_smart_contract.functions.createAccount(name=name,
                                                                        sender=sender_address,
-                                                                        ).buildTransaction(
+                                                                       ).buildTransaction(
                         {
                             "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
                             "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index

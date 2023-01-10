@@ -7,16 +7,14 @@ from encrypt_decrypt import AESCipher
 network_info = {"HTTP": None, "ID": None, "myAddress": None}
 
 user_info = {'friendList': None, 'friendMsg': None, 'userAddress': None}
-# http_provider = "https://goerli.infura.io/v3/0dc1865d3cb84781999f5781077d8ddb"
+http_provider = "https://goerli.infura.io/v3/0dc1865d3cb84781999f5781077d8ddb"
 # http_provider = "https://serene-wider-slug.ethereum-goerli.discover.quiknode.pro/e7ea9294e3c8a1396ce7175a378d32aa42d9cb31/"
-http_provider = "https://eth-goerli.g.alchemy.com/v2/B2aodlHQEDk4pHjhcoeLzBz4k6qDTN56"
+# http_provider = "https://eth-goerli.g.alchemy.com/v2/B2aodlHQEDk4pHjhcoeLzBz4k6qDTN56"
 is_connected = False
 
 
 @app.route('/')
 def mainPage():
-    global user
-    user = deploy_smart_contract.SmartContract(HTTP=http_provider)
     return render_template("mainPage.html")
 
 
@@ -43,6 +41,8 @@ def network():
         private_key = req["privateKey"]
         global private
         private = private_key
+        global user
+        user = deploy_smart_contract.SmartContract(HTTP=http_provider, private_key=private_key)
         # global user
         # user = deploy_smart_contract.SmartContract(HTTP=http_provider,
         #                                            ,
@@ -55,20 +55,35 @@ def network():
                                 )
             return redirect(url_for("chat_page"))
 
-    return render_template("network.html", network_info=network_info, is_connected=user.is_connected)
+    return render_template("network.html", network_info=network_info, is_connected=is_connected)
 
 
 @app.route('/message/<string:friend_address>', methods=["GET", "POST"])
 def msg(friend_address):
+    key = generate_key.generate_key(public_key=int(friend_address, 16),
+                                    my_private_key=int(private, 16))
     friend_address = friend_address
     if request.method == "POST":
         req = request.form
         user.sendMessage(receiverAddress=friend_address, msg=AESCipher(
-            key=generate_key.generate_key(public_key=friend_address, my_private_key=private)).encrypt(
+            key=key).encrypt(
             data=req['msg'])
                          , sender_address=user_info['userAddress'])
         return render_template("msg.html", receiver=friend_address,
-                               msgs=AESCipher(
-                                   key=generate_key.generate_key(public_key=friend_address,
-                                                                 my_private_key=private)).decrypt(
-                                   data=user.readMessages(friend_address, sender_address=user_info['userAddress'])))
+                               msgs=upgrade_msgs(friend_address)[1], side=upgrade_msgs(friend_address)[0])
+    return render_template("msg.html", receiver=friend_address,
+                           msgs=upgrade_msgs(friend_address)[1], side=upgrade_msgs(friend_address)[0])
+
+
+def upgrade_msgs(friend_address):
+    msgs_encrypted = user.readMessages(friend_address, sender_address=user_info['userAddress'])
+    key = generate_key.generate_key(public_key=int(friend_address, 16),
+                                    my_private_key=int(private, 16))
+    msgs_decrypt = {}
+    print("messages is ")
+    print(msgs_encrypted)
+    for x in range(len(msgs_encrypted)):
+        msgs_decrypt[x] = AESCipher(
+            key=key).decrypt(
+            data=msgs_encrypted[x][2])
+    return msgs_encrypted, msgs_decrypt
