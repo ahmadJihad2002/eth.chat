@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="i finished the key exchange">
+    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="req is ready">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,7 @@
       <recent name="$PROJECT_DIR$/app/templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.encrypt_decrypt">
+  <component name="RunManager" selected="Python.run">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="eth.chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -246,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673368023182</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="req is ready">
+      <created>1673782590452</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1673782590452</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,6 +274,7 @@
     <MESSAGE value="i  solved the problem with infura" />
     <MESSAGE value="key exchange almost done" />
     <MESSAGE value="i finished the key exchange" />
-    <option name="LAST_COMMIT_MESSAGE" value="i finished the key exchange" />
+    <MESSAGE value="req is ready" />
+    <option name="LAST_COMMIT_MESSAGE" value="req is ready" />
   </component>
 </project>

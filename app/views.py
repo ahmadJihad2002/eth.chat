@@ -3,6 +3,8 @@ from app import app
 import deploy_smart_contract
 import generate_key
 from encrypt_decrypt import AESCipher
+"  test 1"
+
 
 network_info = {"HTTP": None, "ID": None, "myAddress": None}
 
@@ -37,8 +39,8 @@ def network():
         req = request.form
         network_info["myAddress"] = req["publicKey"]
         name = req["username"]
-        user_info['userAddress'] = network_info["myAddress"]
         private_key = req["privateKey"]
+        user_info['userAddress'] = network_info["myAddress"]
         global private
         private = private_key
         global user
@@ -55,7 +57,7 @@ def network():
                                 )
             return redirect(url_for("chat_page"))
 
-    return render_template("network.html", network_info=network_info, is_connected=is_connected)
+    return render_template("network.html")
 
 
 @app.route('/message/<string:friend_address>', methods=["GET", "POST"])
