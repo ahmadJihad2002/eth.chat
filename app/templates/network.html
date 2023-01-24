@@ -1,6 +1,15 @@
 {% extends "basePage.html" %}
 {% block body %}
-
+{%if error%}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+        <use xlink:href="#exclamation-triangle-fill"/>
+    </svg>
+    <div>
+        {{error}}
+    </div>
+</div>
+{%endif%}
 <form action="/network" class="network" method="post">
 
     <div>
@@ -16,6 +25,7 @@
     <div class="mb-3">
         <label class="form-label">private key</label>
         <input class="form-control" id="privateKey" name="privateKey" type="text">
+    <div class="form-text">make sure it start with "0x"</div>
     </div>
     <form action="/network">
         <button class="btn btn-primary" type="submit">

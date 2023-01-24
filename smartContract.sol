@@ -54,7 +54,7 @@ contract chat {
         // require(checkUserExists(msg.sender), "Create an account first!");
         // require(checkUserExists(friendAddress), "User is not registered!");
         //  require(msg.sender!= friendAddress, "Users cannot add themselves as friends!");
-        // require(checkAlreadyFriends(msg.sender, friendAddress)==false, "These users are already friends!");
+        require(checkAlreadyFriends(msg.sender, friendAddress)==false, "These users are already friends!");
 
         _addFriend(sender, friendAddress, name);
         _addFriend(friendAddress,sender, userList[sender].name);

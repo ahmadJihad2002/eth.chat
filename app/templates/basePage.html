@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>chat app</title>
+    <title>Dchat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="../static/css/styling.css" rel="stylesheet">
@@ -18,7 +18,7 @@
     <!--   start of  the  nav bar   -->
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">main </a>
+            <a class="navbar-brand" href="/">Dchat</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,33 +32,20 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/network">network</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+
 
 
                 </ul>
 
 
-                {% if is_connected%}
-                <div class="container-connection-status">
-                    connected to:
-                </div>
+<!--                {% if is_connected%}-->
+<!--                <div class="container-connection-status">-->
+<!--                    connected to:-->
+<!--                </div>-->
 
-                {%else %}
-                <h6>not connected </h6>
-                {%endif%}
+<!--                {%else %}-->
+<!--                <h6>not connected </h6>-->
+<!--                {%endif%}-->
 
 
             </div>

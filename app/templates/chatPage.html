@@ -1,12 +1,17 @@
 {%extends "basePage.html" %}
 {% block body %}
-{% if not is_connected%}
-<div class="center">
-    network not added yet!
+{% if alreadyFriends%}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+        <use xlink:href="#exclamation-triangle-fill"/>
+    </svg>
+    <div>
+        {{alreadyFriends}}
+    </div>
 </div>
 {%else%}
-<div class="row">
-    <div class="col-lg-4">
+<div class="row3">
+    <div class="col">
         <div class="card">
             <!--start of friends bar -->
             <div class="users-container">
@@ -14,7 +19,7 @@
                 <form action="{{ url_for('chat_page') }}" method="post">
                     <div class="row">
                         <div class="col-sm-3">
-                            <button type="submit" class="btn btn-primary btn-med" >add friend</button>
+                            <button type="submit" class="btn btn-primary btn-med">add friend</button>
                         </div>
                         <div class="col-sm-4">
                             <input class="form-control" id="friendAddress"
@@ -44,15 +49,17 @@
                             <div class="user">
                                 <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png"
                                      alt="Retail Admin">
-                                <span class="status busy"></span>
+
                             </div>
                             <p class="name-time">
                                 <span class="name">{{ friend_list[i][1] }}</span>
                                 <span class="time" id="key">{{ friend_list[i][0] }}</span>
                             </p>
                             <input hidden value={{friend_list[i][0]}} name="selected">
+                         <br>
+                         <br>
                             <button type="submit"
-                                    class="btn btn-primary">goooo
+                                    class="btn btn btn-outline-dark  " style="right:10%;"  >start chatting with {{friend_list[i][1]}}
                             </button>
                         </li>
                     </form>
