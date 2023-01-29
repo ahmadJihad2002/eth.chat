@@ -8,7 +8,6 @@ class SmartContract:
     # get the abi.json
     abi = compile_solidity.abi
 
-
     # for connecting to blockchain network
     def __init__(self, HTTP, private_key):
         # self.myAddress = "0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b"
@@ -18,7 +17,7 @@ class SmartContract:
         self.chainId = self.w3.eth.chainId
         self.private_key = private_key
         self.trx_index = 0
-        # print(self.w3.eth.gas_price)
+        print(self.w3.eth.gas_price)
         self.smart_contract = self.w3.eth.contract(abi=self.abi, bytecode=self.byteCode)
         # 1. build the transaction
         # 2. sign the transaction using private key
@@ -53,7 +52,9 @@ class SmartContract:
         # print(waitRecept.contractAddress)
 
         self.deploy_smart_contract = self.w3.eth.contract(
-            address=Web3.toChecksumAddress('0xD9D59496f648450094a1AF31ca6554A830ebd745'), abi=self.abi)
+            address=Web3.toChecksumAddress('0x839867A77cFd3d147C34FC14827ef00b1910aABa'), abi=self.abi)
+        # self.deploy_smart_contract = self.w3.eth.contract(
+        #     address=Web3.toChecksumAddress('0xD9D59496f648450094a1AF31ca6554A830ebd745'), abi=self.abi)
         # print(self.w3.eth.getTransactionCount(self.myAddress))
         print("contract been deployed ")
 
@@ -73,14 +74,14 @@ class SmartContract:
         print(wait_trax_receipt)
         print(self.w3.eth.get_balance(Web3.toChecksumAddress('0xe0ccB13f8E54611286A68bA2433eB1c247f5b74b')))
 
-    def create_account(self, name, sender_address, private_key):
+    def create_account(self, name, sender_address, private_key, x, y):
         self.private_key = private_key
         wait_trax_receipt = self.w3.eth.wait_for_transaction_receipt(
             self.w3.eth.send_raw_transaction(
                 self.w3.eth.account.sign_transaction(
                     self.deploy_smart_contract.functions.createAccount(name=name,
                                                                        sender=sender_address,
-                                                                       ).buildTransaction(
+                                                                       x=str(x), y=str(y)).buildTransaction(
                         {
                             "gasPrice": self.w3.eth.gas_price, "chainId": self.chainId, "from": sender_address,
                             "nonce": self.w3.eth.getTransactionCount(sender_address) + self.trx_index
@@ -112,4 +113,5 @@ class SmartContract:
     def showfriendList(self, sender_address):
         return self.deploy_smart_contract.functions.getMyFriendList(sender=sender_address).call()
 
-
+    def get_public_key_points(self, sender_address):
+        return self.deploy_smart_contract.functions.get_public_key_points(userAddress=sender_address).call()

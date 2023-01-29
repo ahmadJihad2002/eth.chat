@@ -23,8 +23,8 @@ contract chat {
         string msg;
     }
     struct point   {
-        int256 x;
-        int256 y;
+        string x;
+        string y;
 
     }
 
@@ -42,7 +42,7 @@ contract chat {
 
 
     // Registers the caller(msg.sender) to our app with a non-empty username
-    function createAccount(string calldata name, address sender ,int256 x,int256 y ) external returns (bool){
+    function createAccount(string calldata name, address sender ,string memory x,string memory y ) external returns (bool){
         require(checkUserExists(sender) == false, "User already exists!");
         require(bytes(name).length > 0, "Username cannot be empty!");
         userList[sender].name = name;
@@ -69,12 +69,17 @@ contract chat {
 
     }
 
-    function add_public_key_points( address userAddress,int256 x,int256 y) public  {
+    function add_public_key_points( address sender,string memory x,string memory y) internal  {
         point memory newPoints = point(x,y);
-        public_key_points[userAddress]=newPoints;
+        public_key_points[sender]=newPoints;
 
     }
 
+
+    function get_public_key_points( address userAddress ) public view returns(point memory) {
+         return public_key_points[userAddress];
+
+    }
 
 
 
