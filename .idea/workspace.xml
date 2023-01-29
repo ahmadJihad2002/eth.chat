@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="req is readyadx">
+    <list default="true" id="79940a45-265d-4782-87a6-262a1d1b590c" name="Changes" comment="req is ready adx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/basePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/basePage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/chatPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/chatPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/mainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/mainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/msg.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/msg.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/network.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/network.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blockchain_chat_app.docx" beforeDir="false" afterPath="$PROJECT_DIR$/blockchain_chat_app.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compiledContract.json" beforeDir="false" afterPath="$PROJECT_DIR$/compiledContract.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy_smart_contract.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy_smart_contract.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_key.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_key.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartContract.sol" beforeDir="false" afterPath="$PROJECT_DIR$/smartContract.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/~$ockchain_chat_app.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +55,7 @@
       <recent name="$PROJECT_DIR$/app/templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run">
+  <component name="RunManager" selected="Python.compile_solidity">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="eth.chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -194,9 +185,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.compile_solidity" />
+        <item itemvalue="Python.generate_key" />
         <item itemvalue="Python.deploy_smart_contract" />
         <item itemvalue="Python.encrypt_decrypt" />
-        <item itemvalue="Python.generate_key" />
         <item itemvalue="Python.__init__" />
       </list>
     </recent_temporary>
@@ -280,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673801120050</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="req is ready adx">
+      <created>1674547983224</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1674547983224</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,6 +300,7 @@
     <MESSAGE value="i finished the key exchange" />
     <MESSAGE value="req is ready" />
     <MESSAGE value="req is readyadx" />
-    <option name="LAST_COMMIT_MESSAGE" value="req is readyadx" />
+    <MESSAGE value="req is ready adx" />
+    <option name="LAST_COMMIT_MESSAGE" value="req is ready adx" />
   </component>
 </project>

@@ -14,8 +14,9 @@ user_info = {'friendList': None, 'friendMsg': None, 'userAddress': None}
 # http_provider = "https://goerli.infura.io/v3/0dc1865d3cb84781999f5781077d8ddb"
 http_provider = "https://serene-wider-slug.ethereum-goerli.discover.quiknode.pro/e7ea9294e3c8a1396ce7175a378d32aa42d9cb31/"
 
-
 # http_provider = "https://eth-goerli.g.alchemy.com/v2/B2aodlHQEDk4pHjhcoeLzBz4k6qDTN56"
+
+selected_friend = ''
 
 
 @app.route('/')
@@ -39,6 +40,14 @@ def chat_page():
             alreadyFriends = 'you both already friends'
             return render_template("chatPage.html", friend_list=friend_list,
                                    alreadyFriends=alreadyFriends)
+        except TimeExhausted:
+            time_exhausted = 'time out of 120 sec, please resend the msg'
+            return render_template("chatPage.html", friend_list=friend_list,
+                                   alreadyFriends=time_exhausted)
+        except:
+            error = 'some thing went rong, please retry again '
+            return render_template("chatPage.html", friend_list=friend_list,
+                                   alreadyFriends=error)
 
     return render_template("chatPage.html", friend_list=friend_list,
                            alreadyFriends=alreadyFriends)
@@ -83,21 +92,24 @@ def msg(friend_address):
     key = generate_key.generate_key(public_key=int(friend_address, 16),
                                     my_private_key=int(private, 16))
     friend_address = friend_address
+    selected_friend = friend_address
     if request.method == "POST":
         req = request.form
         try:
-            user.sendMessage(receiverAddress=friend_address, msg=AESCipher(
-                key=key).encrypt(
-                data=req['msg'])
+            # user.sendMessage(receiverAddress=friend_address, msg=AESCipher(
+            #     key=key).encrypt(
+            #     data=req['msg'])
+            #                  , sender_address=user_info['userAddress'])
+            user.sendMessage(receiverAddress=friend_address, msg=req['msg']
                              , sender_address=user_info['userAddress'])
         except TimeExhausted:
             return render_template("msg.html", receiver=friend_address,
                                    msgs=upgrade_msgs(friend_address)[1], side=upgrade_msgs(friend_address)[0],
-                                   error='resend the msg')
+                                   error=f'resend the msg,{TimeExhausted.args}')
         except ValueError:
             return render_template("msg.html", receiver=friend_address,
                                    msgs=upgrade_msgs(friend_address)[1], side=upgrade_msgs(friend_address)[0],
-                                   error='resend the msg')
+                                   error=f'resend the msg,{ValueError.args}')
 
         return render_template("msg.html", receiver=friend_address,
                                msgs=upgrade_msgs(friend_address)[1], side=upgrade_msgs(friend_address)[0], error=None)
@@ -112,8 +124,13 @@ def upgrade_msgs(friend_address):
     msgs_decrypt = {}
     print("messages is ")
     print(msgs_encrypted)
-    for x in range(len(msgs_encrypted)):
-        msgs_decrypt[x] = AESCipher(
-            key=key).decrypt(
-            data=msgs_encrypted[x][2])
+    try:
+        # for x in range(len(msgs_encrypted)):
+        #     msgs_decrypt[x] = AESCipher(
+        #         key=key).decrypt(
+        #         data=msgs_encrypted[x][2])
+        for x in range(len(msgs_encrypted)):
+            msgs_decrypt[x] = msgs_encrypted[x][2]
+    except Exception as e:
+        redirect(url_for("msg", friend_address=selected_friend))
     return msgs_encrypted, msgs_decrypt

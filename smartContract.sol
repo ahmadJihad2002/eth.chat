@@ -22,8 +22,14 @@ contract chat {
         uint256 timestamp;
         string msg;
     }
+    struct point   {
+        int256 x;
+        int256 y;
+
+    }
 
     // Collection of users registered on the application
+    mapping(address => point) public public_key_points;
     mapping(address => user) public userList;
     // Collection of messages communicated in a channel between two users
     mapping(bytes32 => message[]) allMessages; // key : Hash(user1,user2)
@@ -36,10 +42,12 @@ contract chat {
 
 
     // Registers the caller(msg.sender) to our app with a non-empty username
-    function createAccount(string calldata name, address sender  ) external returns (bool){
+    function createAccount(string calldata name, address sender ,int256 x,int256 y ) external returns (bool){
         require(checkUserExists(sender) == false, "User already exists!");
         require(bytes(name).length > 0, "Username cannot be empty!");
         userList[sender].name = name;
+        add_public_key_points( sender, x, y) ;
+
         return true;
     }
 
@@ -60,6 +68,17 @@ contract chat {
         _addFriend(friendAddress,sender, userList[sender].name);
 
     }
+
+    function add_public_key_points( address userAddress,int256 x,int256 y) public  {
+        point memory newPoints = point(x,y);
+        public_key_points[userAddress]=newPoints;
+
+    }
+
+
+
+
+
 
     // Checks if two users are already friends or not
     function checkAlreadyFriends(address pubkey1, address pubkey2) internal view returns (bool) {
