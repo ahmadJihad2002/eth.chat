@@ -48,7 +48,7 @@ def generate_key(public_key, my_private_key):
 
     print('sharedECCKey')
     print(compress_point(sharedECCKey))
-    return sharedECCKey
+    return compress_point(sharedECCKey)
 
 
 def get_x_y(private_key):
@@ -56,14 +56,14 @@ def get_x_y(private_key):
 
     return pub_key_points.x, pub_key_points.y
 
-
-private_key = '0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5'
-print(get_x_y(int(private_key, 16))[0])
-print(get_x_y(int(private_key, 16))[1])
-
-generate_key(("54581745882493735518927915598045440997261088096230584616563249481911156321287",
-              "58678824917114178418404419944743326857203516751209767386125368317488001630745"),
-             int('0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5', 16))
+#
+# private_key = '0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5'
+# print(get_x_y(int(private_key, 16))[0])
+# print(get_x_y(int(private_key, 16))[1])
+#
+# generate_key(("54581745882493735518927915598045440997261088096230584616563249481911156321287",
+#               "58678824917114178418404419944743326857203516751209767386125368317488001630745"),
+#              int('0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5', 16))
 # get_x_y(0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5)
 # print(get_x_y(0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5)[0])
 # # pri = '0x78982a636429ff78cd112bf675208b229d50453a2a8931d825734457e6fca9e5'

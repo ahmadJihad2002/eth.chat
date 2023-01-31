@@ -57,33 +57,36 @@ def network():
     error = None
     if request.method == "POST":
         # try:
-            req = request.form
-            network_info["myAddress"] = req["publicKey"]
-            name = req["username"]
-            private_key = req["privateKey"]
-            user_info['userAddress'] = network_info["myAddress"]
-            global private
-            private = private_key
-            global user
-            user = deploy_smart_contract.SmartContract(HTTP=http_provider, private_key=private_key)
+        req = request.form
+        network_info["myAddress"] = req["publicKey"]
+        name = req["username"]
+        private_key = req["privateKey"]
+        user_info['userAddress'] = network_info["myAddress"]
+        global private
+        private = private_key
+        global user
+        print('connected to smart contract ')
+        user = deploy_smart_contract.SmartContract(HTTP=http_provider, private_key=private_key)
+        print('done')
 
-            # global user
-            # user = deploy_smart_contract.SmartContract(HTTP=http_provider,
-            #                                            ,
-            #                                            publicKey=req["publicKey"], name=name)
-            if user.checkUserExists(Address=network_info["myAddress"]):
-                # user.private_key = private_key
-                return redirect(url_for("chat_page"))
-            else:
-                user.create_account(name=name, sender_address=network_info["myAddress"], private_key=private_key,
-                                    x= generate_key.get_x_y(int(private_key, 16))[0],
-                                    y=generate_key.get_x_y(int(private_key, 16))[1])
-                return redirect(url_for("chat_page"))
-        # except:
-        #     error = "something went rong ..." \
-        #             "reconnect again "
-        #
-        #     return render_template("network.html", error=error)
+        # global user
+        # user = deploy_smart_contract.SmartContract(HTTP=http_provider,
+        #                                            ,
+        #                                            publicKey=req["publicKey"], name=name)
+        if user.checkUserExists(Address=network_info["myAddress"]):
+            # user.private_key = private_key
+            return redirect(url_for("chat_page"))
+        else:
+            print('creating accout')
+            user.create_account(name=name, sender_address=network_info["myAddress"], private_key=private_key,
+                                x=generate_key.get_x_y(int(private_key, 16))[0],
+                                y=generate_key.get_x_y(int(private_key, 16))[1])
+            return redirect(url_for("chat_page"))
+    # except:
+    #     error = "something went rong ..." \
+    #             "reconnect again "
+    #
+    #     return render_template("network.html", error=error)
 
     return render_template("network.html", error=error)
 
@@ -94,6 +97,8 @@ def msg(friend_address):
     print(user.get_public_key_points(friend_address))
     key = generate_key.generate_key(public_key=user.get_public_key_points(friend_address),
                                     my_private_key=int(private, 16))
+    print('shared encryption key ')
+    print(key)
     friend_address = friend_address
     selected_friend = friend_address
     if request.method == "POST":
@@ -121,19 +126,34 @@ def msg(friend_address):
 
 
 def upgrade_msgs(friend_address):
-    msgs_encrypted = user.readMessages(friend_address, sender_address=user_info['userAddress'])
-    key = generate_key.generate_key(user.get_public_key_points(friend_address),
-                                    my_private_key=int(private, 16))
-    msgs_decrypt = {}
-    print("messages is ")
-    print(msgs_encrypted)
     try:
-        # for x in range(len(msgs_encrypted)):
-        #     msgs_decrypt[x] = AESCipher(
-        #         key=key).decrypt(
-        #         data=msgs_encrypted[x][2])
+        print("i am in upgrade msgs")
+        msgs_encrypted = user.readMessages(friend_address, sender_address=user_info['userAddress'])
+        key = generate_key.generate_key(user.get_public_key_points(friend_address),
+                                        my_private_key=int(private, 16))
+        print("decryption key is")
+        print(key)
+        msgs_decrypt = []
+        print("messages are ")
+        print(msgs_encrypted)
+        print(msgs_encrypted[0])
+        # try:
+        print("type")
+        print(type(msgs_encrypted[2]))
+        print(len(msgs_encrypted))
         for x in range(len(msgs_encrypted)):
-            msgs_decrypt[x] = msgs_encrypted[x][2]
-    except Exception as e:
-        redirect(url_for("msg", friend_address=selected_friend))
-    return msgs_encrypted, msgs_decrypt
+            try:
+                print(msgs_encrypted[x][2])
+                msgs_decrypt.append(AESCipher(
+                    key=key).decrypt(
+                    data=msgs_encrypted[x][2]))
+            # for x in range(len(msgs_encrypted)):
+            #     msgs_decrypt[x] = msgs_encrypted[x][2]
+            except:
+                msgs_decrypt.append(" fail to decrypt")
+
+        print('msgs_decrypt')
+        print(msgs_decrypt)
+        return msgs_encrypted, msgs_decrypt
+    except:
+        redirect(url_for('msg', friend_address=friend_address))
